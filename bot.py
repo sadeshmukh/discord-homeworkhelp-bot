@@ -4,6 +4,11 @@ from nextcord.ext import commands
 import os
 
 
+def escape(text: str):
+    for i in [ "**", "*", "_", "`", "~~", ">", "```"]:
+        text = text.replace(i, "\\" + i)
+    return text.strip()
+
 def main():
     intents = nextcord.Intents.default()
     intents.message_content = True
@@ -14,8 +19,9 @@ def main():
         await interaction.response.send_message("Pong!")
 
 
+   
     @bot.slash_command("compile", description="Compile the story text into a channel", )
-    async def compile(interaction: nextcord.Interaction, from_channel: nextcord.TextChannel, to_channel: nextcord.TextChannel, spacing: int = 1, show_author: bool = False):
+    async def compile(interaction: nextcord.Interaction, from_channel: nextcord.TextChannel, to_channel: nextcord.TextChannel, spacing: int = 2, show_author: bool = False):
         if not interaction.user.guild_permissions.administrator:
             await interaction.response.send_message("You must be an administrator to use this command.", ephemeral=True)
             return
@@ -30,21 +36,19 @@ def main():
         current_length = 0
         chunk = ""
         for message in no_spoilers:
-            messagecontent = message.content.strip()
-            for i in [ "**", "*", "_", "`", "~~", ">", "```"]:
-                messagecontent = messagecontent.replace(i, "\\" + i)
-            message.content = messagecontent
+            message.content = escape(message.content)
+            display = escape(message.author.display_name) if show_author else ""
             
-            if current_length + len(message.content) > 2000 - spacing:
+            if current_length + len(message.content) + spacing + len(display) + 2 > 2000 - spacing:
                 chunks.append(chunk + "\n" * spacing)
                 chunk = ""
                 current_length = 0
 
             if show_author:
-                chunk += f"{message.author.display_name}: "
+                chunk += f"{display}: "
             
             chunk += message.content.strip().capitalize() + "\n" * spacing
-            current_length += len(message.content) + spacing + len(message.author.display_name) + 2
+            current_length += len(message.content) + spacing + len(display) + 2
         chunks.append(chunk)
         for chunk in chunks:
             if chunk == "":
