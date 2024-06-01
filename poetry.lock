@@ -313,6 +313,23 @@ files = [
 ]
 
 [[package]]
+name = "emoji"
+version = "2.12.1"
+description = "Emoji for Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "emoji-2.12.1-py3-none-any.whl", hash = "sha256:a00d62173bdadc2510967a381810101624a2f0986145b8da0cffa42e29430235"},
+    {file = "emoji-2.12.1.tar.gz", hash = "sha256:4aa0488817691aa58d83764b6c209f8a27c0b3ab3f89d1b8dceca1a62e4973eb"},
+]
+
+[package.dependencies]
+typing-extensions = ">=4.7.0"
+
+[package.extras]
+dev = ["coverage", "pytest (>=7.4.4)"]
+
+[[package]]
 name = "frozenlist"
 version = "1.4.1"
 description = "A list-like structure which implements collections.abc.MutableSequence"
@@ -582,6 +599,20 @@ typing_extensions = ">=4.2.0,<5"
 docs = ["sphinx (==5.2.3)", "sphinxcontrib-websupport", "sphinxcontrib_trio (==1.1.2)", "typing_extensions (>=4.2.0,<5)"]
 speed = ["aiohttp[speedups]", "orjson (>=3.5.4)"]
 voice = ["PyNaCl (>=1.3.0,<1.5)"]
+
+[[package]]
+name = "ollama"
+version = "0.2.0"
+description = "The official Python client for Ollama."
+optional = false
+python-versions = "<4.0,>=3.8"
+files = [
+    {file = "ollama-0.2.0-py3-none-any.whl", hash = "sha256:fefe119386c8b2cb6b6e232f9c10894326675425be980403c6a7a2dbfc8b0e19"},
+    {file = "ollama-0.2.0.tar.gz", hash = "sha256:de056cada2a92433195102da2b8ff50f66335b138eff5d277765c8adf79983f0"},
+]
+
+[package.dependencies]
+httpx = ">=0.27.0,<0.28.0"
 
 [[package]]
 name = "openai"
@@ -913,4 +944,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "d9b8405d84e1a8b8379f8b951d3f99374f8e80a1316fec571819ebcd09935d85"
+content-hash = "f47a587dbbfa1fb41550ad0955d4f5b15b8841878be836e12be54587d5647737"

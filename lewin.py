@@ -18,27 +18,33 @@ async def get_lewin_soup():
       return BeautifulSoup(text, "html.parser")
 
 async def get_hw_raw(soup):
-  first = soup.find("div", {"class": "tyJCtd mGzaTb Depvyb baZpAe"}).text.replace("\xa0", "")
-  thing = datetime.now()
-  counter = 0
-  begin = None
-  end = None
-  while not begin:
-    if counter >= 7:
-      return None
-    current = (thing - timedelta(days=counter))
-    if current.strftime("%-m/%d/%y") in first:
-      begin = current
-    counter += 1
-  while not end:
-    if counter >= 14:
-      return None
-    current = (thing - timedelta(days=counter))
-    if current.strftime("%-m/%d/%y") in first:
-      end = current
-    counter += 1
-  barrier = "Assignments Semester 2:- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-  return first.split(end.strftime("%-m/%d/%y"))[0].split(barrier)[1]
+  # first = soup.find("div", {"class": "tyJCtd mGzaTb Depvyb baZpAe"}).text.replace("\xa0", "")
+  # thing = datetime.now()
+  # counter = 0
+  # begin = None
+  # end = None
+  # while not begin:
+  #   if counter >= 7:
+  #     return None
+  #   current = (thing - timedelta(days=counter))
+  #   if current.strftime("%-m/%d/%y") in first:
+  #     begin = current
+  #   counter += 1
+  # while not end:
+  #   if counter >= 14:
+  #     return None
+  #   current = (thing - timedelta(days=counter))
+  #   if current.strftime("%-m/%d/%y") in first:
+  #     end = current
+  #   counter += 1
+  # barrier = "Assignments Semester 2:- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  # return first.split(end.strftime("%-m/%d/%y"))[0].split(barrier)[1]
+
+  # that was a goofy way to do it
+  # just get last 2000 characters after the barrier
+  barrier = "Assignments Semester 2:-"
+  return soup.get_text().split(barrier)[1][-2000:]
+
 
 async def to_legible(raw):
   prompt = """
