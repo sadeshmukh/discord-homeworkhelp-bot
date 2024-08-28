@@ -4,9 +4,7 @@ from openai import AsyncOpenAI
 import os
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-import logging
-
-logging.basicConfig(level=logging.INFO)
+# import logging
 
 client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 LEWIN = "https://sites.google.com/a/pleasantonusd.net/mr-lewin-s-page_x/ha2-sem1-2-2023-2024"
